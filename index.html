@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -45,27 +45,12 @@
         .info { color: #888; font-size: 14px; margin-top: 15px; }
         footer { text-align: center; padding: 40px 20px; color: #888; }
         
-        /* 🎨 ÍCONES OFICIAIS */
+        /* 🎨 ÍCONES PNG OFICIAIS */
         .step-content { display: flex; align-items: center; }
         .step-icon { 
-            width: 50px; height: 50px; margin-right: 15px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 24px; font-weight: bold; flex-shrink: 0; position: relative;
-        }
-        /* YOUTUBE OFICIAL - CÍRCULO VERMELHO + PLAY BRANCO */
-        #step1 .step-icon { 
-            background: #FF0000 !important; 
-            box-shadow: 0 0 15px rgba(255,0,0,0.8);
-        }
-        #step1 .step-icon::before {
-            content: ''; position: absolute; width: 0; height: 0;
-            border-left: 16px solid white; border-top: 12px solid transparent; border-bottom: 12px solid transparent;
-            left: 52%; top: 50%; transform: translate(-65%, -50%);
-        }
-        /* DISCORD OFICIAL - GRADIENTE AZUL */
-        #step2 .step-icon { 
-            background: linear-gradient(135deg, #7289DA, #99AAB5) !important; 
-            box-shadow: 0 0 15px rgba(114,137,218,0.8);
+            width: 48px; height: 48px; margin-right: 15px; 
+            border-radius: 50%; flex-shrink: 0; 
+            background-size: cover; background-position: center;
         }
     </style>
 </head>
@@ -79,20 +64,20 @@
         <div class="card">
             <h2 style="color:#ff3232;margin-bottom:20px;text-align:center;">🔐 VERIFICAÇÃO</h2>
             
-            <!-- ✅ YOUTUBE ÍCONE OFICIAL -->
+            <!-- ✅ YOUTUBE ÍCONE PNG OFICIAL -->
             <div class="step" id="step1">
                 <div class="step-content">
-                    <div class="step-icon"></div>
+                    <div class="step-icon" style="background-image: url('https://cdn-icons-png.flaticon.com/512/3938/3938051.png')"></div>
                     <span>YouTube @Vorthex-k5n</span>
                 </div>
                 <button class="btn" id="btnYT">Acessar YouTube</button>
             </div>
             <div class="status" id="ytStatus" style="display:none;">✓ YouTube Concluído</div>
 
-            <!-- ✅ DISCORD ÍCONE OFICIAL -->
+            <!-- ✅ DISCORD ÍCONE PNG OFICIAL -->
             <div class="step" id="step2">
                 <div class="step-content">
-                    <div class="step-icon">💬</div>
+                    <div class="step-icon" style="background-image: url('https://cdn-icons-png.flaticon.com/512/2111/2111370.png')"></div>
                     <span>Discord VORTHEX</span>
                 </div>
                 <button class="btn" id="btnDC">Entrar Discord</button>
