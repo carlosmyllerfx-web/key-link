@@ -24,38 +24,63 @@
         .card { background: rgba(20,5,10,0.9); border: 3px solid #ff3232; border-radius: 15px; padding: 30px; margin: 20px 0; animation: rainbow 3s linear infinite; }
         .step { background: rgba(15,15,20,0.95); border: 2px solid #ff3232; border-radius: 12px; padding: 25px; margin: 15px 0; display: flex; justify-content: space-between; align-items: center; }
         .step.completed { border-color: #00ff88; background: rgba(0,255,136,0.15); }
-        .btn { background: linear-gradient(135deg,#ff0000,#ff3232); border: none; color: white; padding: 14px 32px; font-size: 16px; font-weight: bold; border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        
+        /* BOTÕES MENOR */
+        .btn { 
+            background: linear-gradient(135deg,#ff0000,#ff3232); 
+            border: none; 
+            color: white; 
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: bold; 
+            border-radius: 8px;
+            cursor: pointer; 
+            transition: all 0.3s; 
+        }
         .btn:hover { transform: scale(1.05); box-shadow: 0 5px 25px rgba(255,50,50,0.6); }
         .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        
+        /* BOTÃO PRINCIPAL SEM EMOJI */
+        #btnGenerate {
+            width:100%; 
+            margin:25px 0; 
+            font-size:18px;
+            padding:14px 20px;
+        }
+        #btnCopy {
+            width:200px; 
+            margin-top:15px; 
+            padding: 8px 16px;
+        }
+        
         .key-box { background: rgba(15,15,20,0.95); border: 2px solid #ff3232; border-radius: 12px; padding: 30px; margin: 20px 0; text-align: center; }
         .key-code { font-family: 'Courier New', monospace; color: #00ff88; font-size: 26px; word-break: break-all; margin: 20px 0; padding: 20px; background: rgba(0,255,136,0.15); border-radius: 10px; border: 2px solid #00ff88; }
         .status { color: #00ff88; font-weight: bold; font-size: 18px; margin: 15px 0; }
         .info { color: #aaa; font-size: 14px; margin-top: 20px; }
         footer { text-align: center; padding: 50px 20px; color: #888; }
         
-        /* ÍCONES CORRIGIDOS - SEM BASE64 */
+        /* ÍCONES */
         .step-content { display: flex; align-items: center; gap: 15px; }
         .step-icon { 
             width: 52px; height: 52px; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
         }
-        
-        /* YOUTUBE - SVG FUNCIONANDO */
-        #step1 .step-icon { 
-            background: #FF0000; 
-            box-shadow: 0 0 20px rgba(255,0,0,0.8);
-        }
+        #step1 .step-icon { background: #FF0000; box-shadow: 0 0 20px rgba(255,0,0,0.8); }
         #step1 .step-icon svg { width: 28px; height: 28px; fill: white; }
-        
-        /* DISCORD - CSS PURE (SEM BUG) */
         #step2 .step-icon { 
             background: linear-gradient(135deg, #5865F2, #7289DA); 
             box-shadow: 0 0 20px rgba(88,101,242,0.8);
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
-        #step2 .step-icon::before {
-            content: "💬";
-            font-size: 26px;
+        #step2 .step-icon img {
+            width: 42px !important;
+            height: 42px !important;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            will-change: transform;
         }
     </style>
 </head>
@@ -84,21 +109,25 @@
             </div>
             <div class="status" id="ytStatus" style="display:none;">✅ YouTube verificado</div>
 
-            <!-- DISCORD - ÍCONE CSS FIXO -->
+            <!-- DISCORD -->
             <div class="step" id="step2">
                 <div class="step-content">
-                    <div class="step-icon"></div>
+                    <div class="step-icon">
+                        <img src="data:image/png;base64,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" 
+                             alt="Discord Icon" loading="lazy">
+                    </div>
                     <span style="font-size: 18px; font-weight: 500;">Discord VORTHEX</span>
                 </div>
                 <button class="btn" id="btnDC">Entrar Discord</button>
             </div>
             <div class="status" id="dcStatus" style="display:none;">✅ Discord verificado</div>
 
-            <button class="btn" id="btnGenerate" style="width:100%; margin:25px 0; font-size:22px; padding:18px;" disabled>🎯 GERAR KEY 24H</button>
+            <!-- SEM EMOJI 🎯 -->
+            <button class="btn" id="btnGenerate" disabled>GERAR KEY 24H</button>
             
             <div class="key-box" id="keyBox">
                 <div class="key-code" id="keyCode">👆 Complete YouTube + Discord primeiro</div>
-                <button class="btn" id="btnCopy" style="width:220px; margin-top:15px;" disabled>Copiar Key</button>
+                <button class="btn" id="btnCopy" disabled>Copiar Key</button>
                 <div class="info">Key válida 24h • IP-locked • Arsenal Script</div>
             </div>
         </div>
