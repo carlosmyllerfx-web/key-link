@@ -33,17 +33,24 @@
         .info { color: #888; font-size: 14px; margin-top: 15px; }
         footer { text-align: center; padding: 40px 20px; color: #888; }
         
-        /* ÍCONES SVG EMBUTIDOS */
+        /* ÍCONES CIRCULARES PERFEITOS */
         .step-content { display: flex; align-items: center; }
-        .step-icon { width: 50px; height: 50px; margin-right: 15px; border-radius: 50%; flex-shrink: 0; position: relative; }
+        .step-icon { 
+            width: 50px; height: 50px; margin-right: 15px; 
+            border-radius: 50%; flex-shrink: 0; position: relative; 
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
         
-        /* YOUTUBE SVG EMBUTIDO */
+        /* YOUTUBE - CÍRCULO VERMELHO + PLAY */
         #step1 .step-icon { background: #FF0000; box-shadow: 0 0 15px rgba(255,0,0,0.8); }
-        #step1 .step-icon svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 24px; height: 24px; fill: white; }
+        #step1 .step-icon svg { width: 24px; height: 24px; fill: white; }
         
-        /* DISCORD SVG EMBUTIDO */
-        #step2 .step-icon { background: linear-gradient(135deg, #7289DA, #99AAB5); box-shadow: 0 0 15px rgba(114,137,218,0.8); }
-        #step2 .step-icon svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 28px; height: 28px; fill: white; }
+        /* DISCORD - CIRCULAR GRADIENTE + ÍCONE CHAT */
+        #step2 .step-icon { 
+            background: linear-gradient(135deg, #7289DA 0%, #99AAB5 100%); 
+            box-shadow: 0 0 15px rgba(114,137,218,0.8);
+        }
+        #step2 .step-icon svg { width: 26px; height: 26px; fill: white; }
     </style>
 </head>
 <body>
@@ -56,12 +63,12 @@
         <div class="card">
             <h2 style="color:#ff3232;margin-bottom:20px;text-align:center;">🔐 VERIFICAÇÃO</h2>
             
-            <!-- YOUTUBE ÍCONE SVG EMBUTIDO -->
+            <!-- YOUTUBE ÍCONE OFICIAL -->
             <div class="step" id="step1">
                 <div class="step-content">
                     <div class="step-icon">
                         <svg viewBox="0 0 24 24">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            <path d="M8 5v14l11-7z"/>
                         </svg>
                     </div>
                     <span>YouTube @Vorthex-k5n</span>
@@ -70,14 +77,13 @@
             </div>
             <div class="status" id="ytStatus" style="display:none;">✓ YouTube Concluído</div>
 
-            <!-- DISCORD ÍCONE SVG EMBUTIDO -->
+            <!-- DISCORD ÍCONE CIRCULAR OFICIAL -->
             <div class="step" id="step2">
                 <div class="step-content">
                     <div class="step-icon">
+                        <!-- ÍCONE CHAT SIMPLES CIRCULAR -->
                         <svg viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.713 3H4.287A1.287 1.287 0 0 0 3 4.287v15.426c0 .713.572 1.287 1.287 1.287h7.663V15.705a1 1 0 0 1 1-1h2.387a1 1 0 0 1 1 1v5.308h2.663a1.287 1.287 0 0 0 1.287-1.287V4.287A1.287 1.287 0 0 0 19.713 3z" fill="currentColor"/>
-                            <path d="M13.5 9.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM9.75 9.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5z" fill="currentColor"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5 17.25a1.25 1.25 0 0 1 1.25-1.25h.75a1.25 1.25 0 0 1 0 2.5h-.75a1.25 1.25 0 0 1-1.25-1.25z" fill="currentColor"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M22 11.444a9.556 9.556 0 0 1-6.363 9.045 10.24 10.24 0 0 1-3.108.773 9.831 9.831 0 0 1-3.202-.773A9.555 9.555 0 0 1 2 11.444a9.556 9.556 0 0 1 6.364-9.045A10.24 10.24 0 0 1 12 2a10.24 10.24 0 0 1 3.637.773A9.555 9.555 0 0 1 22 11.444zM9 11a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9z"/>
                         </svg>
                     </div>
                     <span>Discord VORTHEX</span>
@@ -96,7 +102,6 @@
         <footer><p>VORTHEX © 2026 - Key System</p></footer>
     </div>
 
-    <!-- SCRIPT igual ao anterior -->
     <script>
         for(let i=0;i<100;i++){
             const star=document.createElement('div');star.className='star';
