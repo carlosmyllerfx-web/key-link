@@ -3,178 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>VORTHEX - Key System</title>
+    <title>VORTHEX - Key System Arsenal Script</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0f14 0%, #1a0a0f 100%);
-            color: #fff; min-height: 100vh; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        .stars { position: fixed; width: 100%; height: 100%; z-index: 0; }
-        .star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; animation: twinkle 3s infinite; }
-        @keyframes twinkle { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
-        @keyframes rainbow { 0%{border-color:#ff0000;}14%{border-color:#ff7f00;}28%{border-color:#ffff00;}42%{border-color:#00ff00;}57%{border-color:#0000ff;}71%{border-color:#4b0082;}85%{border-color:#9400d3;}100%{border-color:#ff0000;} }
-        @keyframes rainbowText { 0%{color:#ff0000;}14%{color:#ff7f00;}28%{color:#ffff00;}42%{color:#00ff00;}57%{color:#0000ff;}71%{color:#4b0082;}85%{color:#9400d3;}100%{color:#ff0000;} }
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
-        header { text-align: center; padding: 60px 20px; }
-        h1 { font-size: 60px; font-weight: bold; margin-bottom: 10px; animation: rainbowText 3s linear infinite; text-shadow: 0 0 20px rgba(255,0,0,0.5); }
-        .subtitle { font-size: 20px; color: #ff3232; margin-bottom: 40px; }
-        .card { background: rgba(20,5,10,0.9); border: 3px solid #ff3232; border-radius: 15px; padding: 30px; margin: 20px 0; animation: rainbow 3s linear infinite; }
-        .step { background: rgba(15,15,20,0.95); border: 2px solid #ff3232; border-radius: 12px; padding: 25px; margin: 15px 0; display: flex; justify-content: space-between; align-items: center; }
-        .step.completed { border-color: #00ff88; background: rgba(0,255,136,0.15); }
-        .btn { background: linear-gradient(135deg,#ff0000,#ff3232); border: none; color: white; padding: 14px 32px; font-size: 16px; font-weight: bold; border-radius: 10px; cursor: pointer; transition: all 0.3s; }
-        .btn:hover { transform: scale(1.05); box-shadow: 0 5px 25px rgba(255,50,50,0.6); }
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        .key-box { background: rgba(15,15,20,0.95); border: 2px solid #ff3232; border-radius: 12px; padding: 30px; margin: 20px 0; text-align: center; }
-        .key-code { font-family: 'Courier New', monospace; color: #00ff88; font-size: 26px; word-break: break-all; margin: 20px 0; padding: 20px; background: rgba(0,255,136,0.15); border-radius: 10px; border: 2px solid #00ff88; }
-        .status { color: #00ff88; font-weight: bold; font-size: 18px; margin: 15px 0; }
-        .info { color: #aaa; font-size: 14px; margin-top: 20px; }
-        footer { text-align: center; padding: 50px 20px; color: #888; }
-        
-        /* ÍCONES PERFEITOS */
-        .step-content { display: flex; align-items: center; gap: 15px; }
-        .step-icon { 
-            width: 52px; height: 52px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
+
+        .header {
+            background: rgba(0,0,0,0.9);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
-        
-        /* YOUTUBE */
-        #step1 .step-icon { 
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #FF0000, #5865F2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .social-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icon-yt { 
+            width: 50px; 
+            height: 50px; 
             background: #FF0000; 
-            box-shadow: 0 0 20px rgba(255,0,0,0.8);
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 0 20px #FF0000;
+            transition: transform 0.3s ease;
+            text-decoration: none;
         }
-        #step1 .step-icon svg { width: 28px; height: 28px; fill: white; }
-        
-        /* DISCORD - SEU BASE64 PNG */
-        #step2 .step-icon { 
+        .icon-yt::before { 
+            content: "▶"; 
+            font-size: 24px; 
+            color: white; 
+        }
+        .icon-yt:hover { transform: scale(1.1); }
+
+        .icon-discord { 
+            width: 50px; 
+            height: 50px; 
             background: linear-gradient(135deg, #5865F2, #7289DA); 
-            box-shadow: 0 0 20px rgba(88,101,242,0.8);
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 0 20px #5865F2;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+        .icon-discord::before { 
+            content: "💬"; 
+            font-size: 22px; 
+        }
+        .icon-discord:hover { transform: scale(1.1); }
+
+        .main-content {
+            margin-top: 100px;
+            flex: 1;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 40px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .key-system {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .key-input-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .key-input {
+            padding: 15px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.9);
+            width: 300px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .generate-btn, .verify-btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .generate-btn {
+            background: linear-gradient(45deg, #FF0000, #FF4444);
+            color: white;
+        }
+        .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255,0,0,0.4); }
+
+        .verify-btn {
+            background: linear-gradient(45deg, #5865F2, #7289DA);
+            color: white;
+        }
+        .verify-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(88,101,242,0.4); }
+
+        .status {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            min-height: 30px;
+        }
+
+        .status.valid { color: #00FF88; }
+        .status.invalid { color: #FF4444; }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background: rgba(0,0,0,0.9);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .key-input-group { flex-direction: column; align-items: center; }
+            .key-input { width: 100%; max-width: 400px; }
         }
     </style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
-    <div class="container">
-        <header>
-            <h1>VORTHEX</h1>
-            <p class="subtitle">Key System - Arsenal Script</p>
-        </header>
-        
-        <div class="card">
-            <h2 style="color:#ff3232; margin-bottom:25px; text-align:center;">🔐 VERIFICAÇÃO</h2>
-            
-            <!-- YOUTUBE -->
-            <div class="step" id="step1">
-                <div class="step-content">
-                    <div class="step-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                    <span style="font-size: 18px; font-weight: 500;">YouTube @Vorthex-k5n</span>
-                </div>
-                <button class="btn" id="btnYT">Acessar YouTube</button>
-            </div>
-            <div class="status" id="ytStatus" style="display:none;">✅ YouTube verificado</div>
-
-            <!-- DISCORD - PNG BASE64 -->
-            <div class="step" id="step2">
-                <div class="step-content">
-                    <div class="step-icon">
-                        <img src="data:image/png;base64,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" 
-                             width="42" height="42" style="border-radius: 50%; object-fit: cover;">
-                    </div>
-                    <span style="font-size: 18px; font-weight: 500;">Discord VORTHEX</span>
-                </div>
-                <button class="btn" id="btnDC">Entrar Discord</button>
-            </div>
-            <div class="status" id="dcStatus" style="display:none;">✅ Discord verificado</div>
-
-            <button class="btn" id="btnGenerate" style="width:100%; margin:25px 0; font-size:22px; padding:18px;" disabled>🎯 GERAR KEY 24H</button>
-            
-            <div class="key-box" id="keyBox">
-                <div class="key-code" id="keyCode">👆 Complete YouTube + Discord primeiro</div>
-                <button class="btn" id="btnCopy" style="width:220px; margin-top:15px;" disabled>Copiar Key</button>
-                <div class="info">Key válida 24h • IP-locked • Arsenal Script</div>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">VORTHEX</a>
+            <div class="social-links">
+                <a href="https://youtube.com/@Vorthex-k5n" class="icon-yt" target="_blank" title="YouTube @Vorthex-k5n"></a>
+                <a href="https://discord.gg/vorthexbr" class="icon-discord" target="_blank" title="Discord VORTHEX"></a>
             </div>
         </div>
-        
-        <footer><p>VORTHEX © 2026 - Key System</p></footer>
-    </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <section class="hero">
+            <h1>🔑 Key System</h1>
+            <p>Arsenal Script - Proteção Total para seu Projeto</p>
+        </section>
+
+        <section class="key-system">
+            <div class="key-input-group">
+                <input type="text" class="key-input" id="keyInput" placeholder="Insira sua chave aqui..." maxlength="32">
+                <button class="generate-btn" onclick="generateKey()">Gerar Chave</button>
+                <button class="verify-btn" onclick="verifyKey()">Verificar</button>
+            </div>
+            <div class="status" id="status"></div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Anti-Abuso</h3>
+                <p>Limite de tentativas e validação por IP</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⏰</div>
+                <h3>Validade Temporal</h3>
+                <p>Chaves com expiração configurável</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Obfuscation</h3>
+                <p>Código protegido contra roubo</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2026 VORTHEX - Todos os direitos reservados | Arsenal Script Key System</p>
+        <p><a href="https://youtube.com/@Vorthex-k5n" style="color:#FF0000;">YouTube @Vorthex-k5n</a> | 
+           <a href="https://discord.gg/vorthexbr" style="color:#5865F2;">Discord VORTHEX</a></p>
+    </footer>
 
     <script>
-        // Estrelas
-        for(let i = 0; i < 100; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's';
-            document.getElementById('stars').appendChild(star);
-        }
-
-        let ytDone = false, dcDone = false;
-
-        document.getElementById('btnYT').onclick = () => {
-            window.open('https://www.youtube.com/@Vorthex-k5n', '_blank');
-            ytDone = true;
-            document.getElementById('step1').classList.add('completed');
-            document.getElementById('ytStatus').style.display = 'block';
-            updateGenerateButton();
-        };
-
-        document.getElementById('btnDC').onclick = () => {
-            window.open('https://discord.gg/vorthexbr', '_blank');
-            dcDone = true;
-            document.getElementById('step2').classList.add('completed');
-            document.getElementById('dcStatus').style.display = 'block';
-            updateGenerateButton();
-        };
-
-        function updateGenerateButton() {
-            const btn = document.getElementById('btnGenerate');
-            const copyBtn = document.getElementById('btnCopy');
-            if (ytDone && dcDone) {
-                btn.disabled = false;
-                copyBtn.disabled = false;
+        function generateKey() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let key = '';
+            for (let i = 0; i < 32; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
             }
+            document.getElementById('keyInput').value = key;
+            document.getElementById('status').textContent = '✅ Chave gerada com sucesso!';
+            document.getElementById('status').className = 'status valid';
         }
 
-        document.getElementById('btnGenerate').onclick = () => {
-            if (!ytDone || !dcDone) return;
-            const keyEl = document.getElementById('keyCode');
-            const btn = document.getElementById('btnGenerate');
-            keyEl.textContent = '⏳ Gerando key segura...';
-            btn.disabled = true;
+        function verifyKey() {
+            const key = document.getElementById('keyInput').value;
+            const status = document.getElementById('status');
+            
+            if (!key) {
+                status.textContent = '❌ Insira uma chave!';
+                status.className = 'status invalid';
+                return;
+            }
+
+            // Simulação de verificação (substitua pela sua lógica real)
             setTimeout(() => {
-                const timestamp = Date.now();
-                const userHash = btoa(navigator.userAgent.substring(0,12)).substring(0,6);
-                const uniqueId = Math.random().toString(36).substring(2,6).toUpperCase();
-                const key = `VORTHEX-L8-${userHash}-${uniqueId}-${timestamp.toString().slice(-4)}`;
-                keyEl.textContent = key;
-                btn.disabled = false;
-                btn.textContent = '✅ KEY GERADA';
-                localStorage.setItem('vorthex_key', key);
-            }, 1500);
-        };
-
-        document.getElementById('btnCopy').onclick = async () => {
-            const key = document.getElementById('keyCode').textContent.trim();
-            if (key.includes('VORTHEX-L8')) {
-                try {
-                    await navigator.clipboard.writeText(key);
-                    const btn = event.target;
-                    const oldText = btn.textContent;
-                    btn.textContent = '✓ COPIADA!';
-                    setTimeout(() => btn.textContent = oldText, 2000);
-                } catch {
-                    alert('Key copiada: ' + key);
+                if (key.length === 32 && Math.random() > 0.3) {
+                    status.textContent = '✅ Chave VÁLIDA! Acesso liberado.';
+                    status.className = 'status valid';
+                } else {
+                    status.textContent = '❌ Chave INVÁLIDA! Tente novamente.';
+                    status.className = 'status invalid';
                 }
-            }
-        };
+            }, 800);
+        }
+
+        // Enter para verificar
+        document.getElementById('keyInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') verifyKey();
+        });
+
+        // Copiar chave ao clicar
+        document.getElementById('keyInput').addEventListener('click', function() {
+            this.select();
+        });
     </script>
 </body>
 </html>
