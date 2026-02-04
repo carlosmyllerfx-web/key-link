@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -6,234 +6,90 @@
     <meta name="robots" content="noindex, nofollow">
     <title>VORTHEX - Key System</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #0f0f14 0%, #1a0a0f 100%);
-            color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
+            color: #fff; min-height: 100vh; overflow-x: hidden;
         }
-
-        .stars {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
+        .stars { position: fixed; width: 100%; height: 100%; z-index: 0; }
+        .star { 
+            position: absolute; width: 2px; height: 2px; 
+            background: white; border-radius: 50%; 
+            animation: twinkle 3s infinite; 
         }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
+        @keyframes twinkle { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
         @keyframes rainbow {
-            0% { border-color: #ff0000; }
-            14% { border-color: #ff7f00; }
-            28% { border-color: #ffff00; }
-            42% { border-color: #00ff00; }
-            57% { border-color: #0000ff; }
-            71% { border-color: #4b0082; }
-            85% { border-color: #9400d3; }
-            100% { border-color: #ff0000; }
+            0%{border-color:#ff0000;}14%{border-color:#ff7f00;}28%{border-color:#ffff00;}
+            42%{border-color:#00ff00;}57%{border-color:#0000ff;}71%{border-color:#4b0082;}
+            85%{border-color:#9400d3;}100%{border-color:#ff0000;}
         }
-
         @keyframes rainbowText {
-            0% { color: #ff0000; }
-            14% { color: #ff7f00; }
-            28% { color: #ffff00; }
-            42% { color: #00ff00; }
-            57% { color: #0000ff; }
-            71% { color: #4b0082; }
-            85% { color: #9400d3; }
-            100% { color: #ff0000; }
+            0%{color:#ff0000;}14%{color:#ff7f00;}28%{color:#ffff00;}
+            42%{color:#00ff00;}57%{color:#0000ff;}71%{color:#4b0082;}
+            85%{color:#9400d3;}100%{color:#ff0000;}
         }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+        .container { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 60px 20px; }
+        h1 { font-size: 60px; font-weight: bold; margin-bottom: 10px; animation: rainbowText 3s linear infinite; text-shadow: 0 0 20px rgba(255,0,0,0.5); }
+        .subtitle { font-size: 20px; color: #ff3232; margin-bottom: 40px; }
+        .card { background: rgba(20,5,10,0.8); border: 3px solid #ff3232; border-radius: 15px; padding: 30px; margin: 20px 0; animation: rainbow 3s linear infinite; backdrop-filter: blur(10px); }
+        .step { background: rgba(15,15,20,0.9); border: 2px solid #ff3232; border-radius: 10px; padding: 20px; margin: 15px 0; display: flex; justify-content: space-between; align-items: center; }
+        .step.completed { border-color: #00ff88; background: rgba(0,255,136,0.1); }
+        .btn { background: linear-gradient(135deg,#ff0000,#ff3232); border: none; color: white; padding: 12px 30px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,50,50,0.5); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .key-box { background: rgba(15,15,20,0.9); border: 2px solid #ff3232; border-radius: 10px; padding: 25px; margin: 20px 0; text-align: center; }
+        .key-code { font-family: 'Courier New', monospace; color: #00ff88; font-size: 24px; word-break: break-all; margin: 15px 0; padding: 15px; background: rgba(0,255,136,0.1); border-radius: 8px; border: 1px solid #00ff88; }
+        .status { color: #00ff88; font-weight: bold; font-size: 18px; margin: 10px 0; }
+        .info { color: #888; font-size: 14px; margin-top: 15px; }
+        footer { text-align: center; padding: 40px 20px; color: #888; }
+        
+        /* 🎨 ÍCONES OFICIAIS */
+        .step-content { display: flex; align-items: center; }
+        .step-icon { 
+            width: 50px; height: 50px; margin-right: 15px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 24px; font-weight: bold; flex-shrink: 0; position: relative;
         }
-
-        header {
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        h1 {
-            font-size: 60px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            animation: rainbowText 3s linear infinite;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-        }
-
-        .subtitle {
-            font-size: 20px;
-            color: #ff3232;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: rgba(20, 5, 10, 0.8);
-            border: 3px solid #ff3232;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 20px 0;
-            animation: rainbow 3s linear infinite;
-            backdrop-filter: blur(10px);
-        }
-
-        .step {
-            background: rgba(15, 15, 20, 0.9);
-            border: 2px solid #ff3232;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .step.completed {
-            border-color: #00ff88;
-            background: rgba(0, 255, 136, 0.1);
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #ff0000, #ff3232);
-            border: none;
-            color: white;
-            padding: 12px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 50, 50, 0.5);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .key-box {
-            background: rgba(15, 15, 20, 0.9);
-            border: 2px solid #ff3232;
-            border-radius: 10px;
-            padding: 25px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .key-code {
-            font-family: 'Courier New', monospace;
-            color: #00ff88;
-            font-size: 24px;
-            word-break: break-all;
-            margin: 15px 0;
-            padding: 15px;
-            background: rgba(0, 255, 136, 0.1);
-            border-radius: 8px;
-            border: 1px solid #00ff88;
-        }
-
-        .status {
-            color: #00ff88;
-            font-weight: bold;
-            font-size: 18px;
-            margin: 10px 0;
-        }
-
-        .info {
-            color: #888;
-            font-size: 14px;
-            margin-top: 15px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #888;
-        }
-
-        .step-content {
-            display: flex;
-            align-items: center;
-        }
-
-        .step-icon {
-            width: 50px;
-            height: 50px;
-            margin-right: 15px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        /* 🎨 ÍCONE OFICIAL YOUTUBE - VERMELHO GRADIENT */
+        /* YOUTUBE OFICIAL - CÍRCULO VERMELHO + PLAY BRANCO */
         #step1 .step-icon { 
-            background: linear-gradient(135deg, #FF0000, #CC0000); 
-            box-shadow: 0 0 10px rgba(255,0,0,0.6);
+            background: #FF0000 !important; 
+            box-shadow: 0 0 15px rgba(255,0,0,0.8);
         }
-
-        /* 🎨 ÍCONE OFICIAL DISCORD - AZUL GRADIENT */
+        #step1 .step-icon::before {
+            content: ''; position: absolute; width: 0; height: 0;
+            border-left: 16px solid white; border-top: 12px solid transparent; border-bottom: 12px solid transparent;
+            left: 52%; top: 50%; transform: translate(-65%, -50%);
+        }
+        /* DISCORD OFICIAL - GRADIENTE AZUL */
         #step2 .step-icon { 
-            background: linear-gradient(135deg, #7289DA, #99AAB5); 
-            box-shadow: 0 0 10px rgba(114,137,218,0.6);
+            background: linear-gradient(135deg, #7289DA, #99AAB5) !important; 
+            box-shadow: 0 0 15px rgba(114,137,218,0.8);
         }
     </style>
 </head>
 <body>
     <div class="stars" id="stars"></div>
-
     <div class="container">
         <header>
             <h1>VORTHEX</h1>
             <p class="subtitle">Key System - Arsenal Script</p>
         </header>
-
         <div class="card">
-            <h2 style="color: #ff3232; margin-bottom: 20px; text-align: center;">🔐 VERIFICAÇÃO</h2>
+            <h2 style="color:#ff3232;margin-bottom:20px;text-align:center;">🔐 VERIFICAÇÃO</h2>
             
-            <!-- 🎨 ÍCONE YOUTUBE OFICIAL -->
+            <!-- ✅ YOUTUBE ÍCONE OFICIAL -->
             <div class="step" id="step1">
                 <div class="step-content">
-                    <div class="step-icon">▶️</div>
+                    <div class="step-icon"></div>
                     <span>YouTube @Vorthex-k5n</span>
-                ▶️
                 </div>
                 <button class="btn" id="btnYT">Acessar YouTube</button>
             </div>
-            <div class="status" id="ytStatus" style="display: none;">✓ YouTube Concluído</div>
+            <div class="status" id="ytStatus" style="display:none;">✓ YouTube Concluído</div>
 
-            <!-- 🎨 ÍCONE DISCORD OFICIAL -->
+            <!-- ✅ DISCORD ÍCONE OFICIAL -->
             <div class="step" id="step2">
                 <div class="step-content">
                     <div class="step-icon">💬</div>
@@ -241,97 +97,34 @@
                 </div>
                 <button class="btn" id="btnDC">Entrar Discord</button>
             </div>
-            <div class="status" id="dcStatus" style="display: none;">✓ Discord Concluído</div>
+            <div class="status" id="dcStatus" style="display:none;">✓ Discord Concluído</div>
 
-            <button class="btn" id="btnGenerate" style="width: 100%; margin: 20px 0; font-size: 20px;" disabled>🎯 GERAR KEY 24H</button>
-
+            <button class="btn" id="btnGenerate" style="width:100%;margin:20px 0;font-size:20px;" disabled>🎯 GERAR KEY 24H</button>
             <div class="key-box" id="keyBox">
                 <div class="key-code" id="keyCode">Complete YouTube + Discord primeiro</div>
-                <button class="btn" id="btnCopy" style="width: 200px;" disabled>Copiar Key</button>
+                <button class="btn" id="btnCopy" style="width:200px;" disabled>Copiar Key</button>
                 <div class="info">Key válida 24h • IP-locked • Arsenal Script</div>
             </div>
         </div>
-
-        <footer>
-            <p>VORTHEX © 2026 - Key System</p>
-        </footer>
+        <footer><p>VORTHEX © 2026 - Key System</p></footer>
     </div>
-
     <script>
-        const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 100; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's';
-            starsContainer.appendChild(star);
+        // Estrelas
+        for(let i=0;i<100;i++){
+            const star=document.createElement('div');star.className='star';
+            star.style.left=Math.random()*100+'%';star.style.top=Math.random()*100+'%';
+            star.style.animationDelay=Math.random()*3+'s';document.getElementById('stars').appendChild(star);
         }
-
-        let ytDone = false, dcDone = false;
-
-        document.getElementById('btnYT').onclick = () => {
-            window.open('https://www.youtube.com/@Vorthex-k5n', '_blank');
-            ytDone = true;
-            document.getElementById('step1').classList.add('completed');
-            document.getElementById('ytStatus').style.display = 'block';
-            updateGenerateButton();
+        let ytDone=false,dcDone=false;
+        document.getElementById('btnYT').onclick=()=>{window.open('https://www.youtube.com/@Vorthex-k5n','_blank');ytDone=true;document.getElementById('step1').classList.add('completed');document.getElementById('ytStatus').style.display='block';updateGenerateButton();};
+        document.getElementById('btnDC').onclick=()=>{window.open('https://discord.gg/vorthexbr','_blank');dcDone=true;document.getElementById('step2').classList.add('completed');document.getElementById('dcStatus').style.display='block';updateGenerateButton();};
+        function updateGenerateButton(){const btn=document.getElementById('btnGenerate'),copyBtn=document.getElementById('btnCopy');if(ytDone&&dcDone){btn.disabled=false;copyBtn.disabled=false;}}
+        document.getElementById('btnGenerate').onclick=()=>{
+            if(!ytDone||!dcDone)return;const keyEl=document.getElementById('keyCode'),btn=document.getElementById('btnGenerate');
+            keyEl.textContent='⏳ Gerando key segura...';btn.disabled=true;
+            setTimeout(()=>{const timestamp=Date.now(),userHash=btoa(navigator.userAgent.substring(0,12)).substring(0,6),uniqueId=Math.random().toString(36).substring(2,6).toUpperCase(),key=`VORTHEX-L8-${userHash}-${uniqueId}-${timestamp.toString().slice(-4)}`;keyEl.textContent=key;btn.disabled=false;btn.textContent='✅ KEY GERADA';localStorage.setItem('vorthex_key',key);},1500);
         };
-
-        document.getElementById('btnDC').onclick = () => {
-            window.open('https://discord.gg/vorthexbr', '_blank');
-            dcDone = true;
-            document.getElementById('step2').classList.add('completed');
-            document.getElementById('dcStatus').style.display = 'block';
-            updateGenerateButton();
-        };
-
-        function updateGenerateButton() {
-            const btn = document.getElementById('btnGenerate');
-            const copyBtn = document.getElementById('btnCopy');
-            if (ytDone && dcDone) {
-                btn.disabled = false;
-                copyBtn.disabled = false;
-            }
-        }
-
-        document.getElementById('btnGenerate').onclick = () => {
-            if (!ytDone || !dcDone) return;
-            
-            const keyEl = document.getElementById('keyCode');
-            const btn = document.getElementById('btnGenerate');
-            
-            keyEl.textContent = '⏳ Gerando key segura...';
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                const timestamp = Date.now();
-                const userHash = btoa(navigator.userAgent.substring(0,12)).substring(0,6);
-                const uniqueId = Math.random().toString(36).substring(2, 6).toUpperCase();
-                const key = `VORTHEX-L8-${userHash}-${uniqueId}-${timestamp.toString().slice(-4)}`;
-                
-                keyEl.textContent = key;
-                btn.disabled = false;
-                btn.textContent = '✅ KEY GERADA';
-                
-                localStorage.setItem('vorthex_key', key);
-            }, 1500);
-        };
-
-        document.getElementById('btnCopy').onclick = async () => {
-            const key = document.getElementById('keyCode').textContent.trim();
-            if (key.includes('VORTHEX-L8')) {
-                try {
-                    await navigator.clipboard.writeText(key);
-                    const btn = event.target;
-                    const oldText = btn.textContent;
-                    btn.textContent = '✓ COPIADA!';
-                    setTimeout(() => btn.textContent = oldText, 2000);
-                } catch {
-                    alert('Key copiada!');
-                }
-            }
-        };
+        document.getElementById('btnCopy').onclick=async()=>{const key=document.getElementById('keyCode').textContent.trim();if(key.includes('VORTHEX-L8')){try{await navigator.clipboard.writeText(key);const btn=event.target,oldText=btn.textContent;btn.textContent='✓ COPIADA!';setTimeout(()=>btn.textContent=oldText,2000);}catch{alert('Key copiada!');}}};
     </script>
 </body>
 </html>
