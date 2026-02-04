@@ -197,11 +197,16 @@
             flex-shrink: 0;
         }
 
+        /* 🎨 ÍCONE OFICIAL YOUTUBE - VERMELHO GRADIENT */
         #step1 .step-icon { 
-            background: linear-gradient(135deg, #ff0000, #ff3232); 
+            background: linear-gradient(135deg, #FF0000, #CC0000); 
+            box-shadow: 0 0 10px rgba(255,0,0,0.6);
         }
+
+        /* 🎨 ÍCONE OFICIAL DISCORD - AZUL GRADIENT */
         #step2 .step-icon { 
-            background: linear-gradient(135deg, #7289da, #99aab5); 
+            background: linear-gradient(135deg, #7289DA, #99AAB5); 
+            box-shadow: 0 0 10px rgba(114,137,218,0.6);
         }
     </style>
 </head>
@@ -217,17 +222,18 @@
         <div class="card">
             <h2 style="color: #ff3232; margin-bottom: 20px; text-align: center;">🔐 VERIFICAÇÃO</h2>
             
-            <!-- ✅ MUDANÇA 1: YouTube @Vorthex-k5n + ÍCONE -->
+            <!-- 🎨 ÍCONE YOUTUBE OFICIAL -->
             <div class="step" id="step1">
                 <div class="step-content">
-                    <div class="step-icon">📺</div>
+                    <div class="step-icon">▶️</div>
                     <span>YouTube @Vorthex-k5n</span>
+                ▶️
                 </div>
                 <button class="btn" id="btnYT">Acessar YouTube</button>
             </div>
             <div class="status" id="ytStatus" style="display: none;">✓ YouTube Concluído</div>
 
-            <!-- ✅ MUDANÇA 2: Discord + ÍCONE -->
+            <!-- 🎨 ÍCONE DISCORD OFICIAL -->
             <div class="step" id="step2">
                 <div class="step-content">
                     <div class="step-icon">💬</div>
@@ -252,7 +258,6 @@
     </div>
 
     <script>
-        // ✅ Estrelas
         const starsContainer = document.getElementById('stars');
         for (let i = 0; i < 100; i++) {
             const star = document.createElement('div');
@@ -265,7 +270,6 @@
 
         let ytDone = false, dcDone = false;
 
-        // ✅ MUDANÇA 3: Link correto do teu canal
         document.getElementById('btnYT').onclick = () => {
             window.open('https://www.youtube.com/@Vorthex-k5n', '_blank');
             ytDone = true;
