@@ -178,6 +178,21 @@
             padding: 40px 20px;
             color: #888;
         }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #step1 .step-icon { background: linear-gradient(135deg, #ff0000, #ff3232); }
+        #step2 .step-icon { background: linear-gradient(135deg, #7289da, #99aab5); }
     </style>
 </head>
 <body>
@@ -193,13 +208,19 @@
             <h2 style="color: #ff3232; margin-bottom: 20px; text-align: center;">🔐 VERIFICAÇÃO</h2>
             
             <div class="step" id="step1">
-                <span>📺 YouTube @CarlosVorthex</span>
+                <div style="display: flex; align-items: center;">
+                    <div class="step-icon">📺</div>
+                    <span>YouTube @Vorthex-k5n</span>
+                </div>
                 <button class="btn" id="btnYT">Acessar YouTube</button>
             </div>
             <div class="status" id="ytStatus" style="display: none;">✓ YouTube Concluído</div>
 
             <div class="step" id="step2">
-                <span>💬 Discord VORTHEX</span>
+                <div style="display: flex; align-items: center;">
+                    <div class="step-icon">💬</div>
+                    <span>Discord VORTHEX</span>
+                </div>
                 <button class="btn" id="btnDC">Entrar Discord</button>
             </div>
             <div class="status" id="dcStatus" style="display: none;">✓ Discord Concluído</div>
@@ -211,10 +232,6 @@
                 <button class="btn" id="btnCopy" style="width: 200px;" disabled>Copiar Key</button>
                 <div class="info">Key válida 24h • IP-locked • Arsenal Script</div>
             </div>
-        </div>
-
-        <div style="text-align: center; margin: 30px 0;">
-            <a href="https://pastebin.com/raw/SPZ1NvDi" class="btn" target="_blank">🚀 Abrir Script Arsenal</a>
         </div>
 
         <footer>
@@ -236,7 +253,7 @@
         let ytDone = false, dcDone = false;
 
         document.getElementById('btnYT').onclick = () => {
-            window.open('https://youtube.com/@carlosvorthex', '_blank');
+            window.open('https://www.youtube.com/@Vorthex-k5n', '_blank');
             ytDone = true;
             document.getElementById('step1').classList.add('completed');
             document.getElementById('ytStatus').style.display = 'block';
