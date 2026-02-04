@@ -24,35 +24,42 @@
         .card { background: rgba(20,5,10,0.9); border: 3px solid #ff3232; border-radius: 15px; padding: 30px; margin: 20px 0; animation: rainbow 3s linear infinite; }
         .step { background: rgba(15,15,20,0.95); border: 2px solid #ff3232; border-radius: 12px; padding: 25px; margin: 15px 0; display: flex; justify-content: space-between; align-items: center; }
         .step.completed { border-color: #00ff88; background: rgba(0,255,136,0.15); }
-        
-        /* BOTÕES MENOR */
+        .step.locked { border-color: #ff4444; background: rgba(255,68,68,0.2); opacity: 0.7; }
         .btn { 
             background: linear-gradient(135deg,#ff0000,#ff3232); 
-            border: none; 
-            color: white; 
-            padding: 10px 24px;
-            font-size: 14px;
-            font-weight: bold; 
-            border-radius: 8px;
-            cursor: pointer; 
-            transition: all 0.3s; 
+            border: none; color: white; padding: 10px 24px;
+            font-size: 14px; font-weight: bold; border-radius: 8px;
+            cursor: pointer; transition: all 0.3s; 
         }
-        .btn:hover { transform: scale(1.05); box-shadow: 0 5px 25px rgba(255,50,50,0.6); }
+        .btn:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 5px 25px rgba(255,50,50,0.6); }
         .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        
-        /* BOTÃO PRINCIPAL SEM EMOJI */
-        #btnGenerate {
-            width:100%; 
-            margin:25px 0; 
-            font-size:18px;
-            padding:14px 20px;
+        .timer { 
+            background: rgba(0,255,136,0.2); 
+            border: 2px solid #00ff88; 
+            border-radius: 8px; 
+            padding: 8px 16px; 
+            font-weight: bold; 
+            font-size: 14px;
+            min-width: 80px; text-align: center;
         }
-        #btnCopy {
-            width:200px; 
-            margin-top:15px; 
-            padding: 8px 16px;
+        .timer.warning { 
+            background: rgba(255,68,68,0.3); 
+            border-color: #ff4444; 
+            color: #ff4444;
+            animation: pulse 1s infinite;
         }
-        
+        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+        .warning-text { 
+            color: #ff4444; 
+            font-weight: bold; 
+            font-size: 16px; 
+            text-align: center; 
+            margin: 10px 0;
+            display: none;
+        }
+        .warning-text.show { display: block; }
+        #btnGenerate { width:100%; margin:25px 0; font-size:18px; padding:14px 20px; }
+        #btnCopy { width:200px; margin-top:15px; padding: 8px 16px; }
         .key-box { background: rgba(15,15,20,0.95); border: 2px solid #ff3232; border-radius: 12px; padding: 30px; margin: 20px 0; text-align: center; }
         .key-code { font-family: 'Courier New', monospace; color: #00ff88; font-size: 26px; word-break: break-all; margin: 20px 0; padding: 20px; background: rgba(0,255,136,0.15); border-radius: 10px; border: 2px solid #00ff88; }
         .status { color: #00ff88; font-weight: bold; font-size: 18px; margin: 15px 0; }
@@ -61,27 +68,11 @@
         
         /* ÍCONES */
         .step-content { display: flex; align-items: center; gap: 15px; }
-        .step-icon { 
-            width: 52px; height: 52px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-        }
+        .step-icon { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         #step1 .step-icon { background: #FF0000; box-shadow: 0 0 20px rgba(255,0,0,0.8); }
         #step1 .step-icon svg { width: 28px; height: 28px; fill: white; }
-        #step2 .step-icon { 
-            background: linear-gradient(135deg, #5865F2, #7289DA); 
-            box-shadow: 0 0 20px rgba(88,101,242,0.8);
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-        }
-        #step2 .step-icon img {
-            width: 42px !important;
-            height: 42px !important;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-            will-change: transform;
-        }
+        #step2 .step-icon { background: linear-gradient(135deg, #5865F2, #7289DA); box-shadow: 0 0 20px rgba(88,101,242,0.8); image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+        #step2 .step-icon img { width: 42px !important; height: 42px !important; border-radius: 50%; object-fit: cover; display: block; will-change: transform; }
     </style>
 </head>
 <body>
@@ -95,6 +86,9 @@
         <div class="card">
             <h2 style="color:#ff3232; margin-bottom:25px; text-align:center;">🔐 VERIFICAÇÃO</h2>
             
+            <!-- AVISO RAPIDO DEMAIS -->
+            <div class="warning-text" id="warningText">⚠️ VOCÊ VOLTOU RÁPIDO DEMAIS!</div>
+            
             <!-- YOUTUBE -->
             <div class="step" id="step1">
                 <div class="step-content">
@@ -105,7 +99,10 @@
                     </div>
                     <span style="font-size: 18px; font-weight: 500;">YouTube @Vorthex-k5n</span>
                 </div>
-                <button class="btn" id="btnYT">Acessar YouTube</button>
+                <div>
+                    <button class="btn" id="btnYT">Acessar YouTube</button>
+                    <div class="timer" id="timerYT">10s</div>
+                </div>
             </div>
             <div class="status" id="ytStatus" style="display:none;">✅ YouTube verificado</div>
 
@@ -118,11 +115,13 @@
                     </div>
                     <span style="font-size: 18px; font-weight: 500;">Discord VORTHEX</span>
                 </div>
-                <button class="btn" id="btnDC">Entrar Discord</button>
+                <div>
+                    <button class="btn" id="btnDC">Entrar Discord</button>
+                    <div class="timer" id="timerDC">10s</div>
+                </div>
             </div>
             <div class="status" id="dcStatus" style="display:none;">✅ Discord verificado</div>
 
-            <!-- SEM EMOJI 🎯 -->
             <button class="btn" id="btnGenerate" disabled>GERAR KEY 24H</button>
             
             <div class="key-box" id="keyBox">
@@ -147,21 +146,84 @@
         }
 
         let ytDone = false, dcDone = false;
+        let ytTimer = null, dcTimer = null;
+        let ytStartTime = 0, dcStartTime = 0;
+        const MIN_TIME = 10000; // 10 segundos
 
+        // Função para mostrar aviso rápido demais
+        function showTooFastWarning() {
+            document.getElementById('warningText').classList.add('show');
+            setTimeout(() => {
+                document.getElementById('warningText').classList.remove('show');
+            }, 3000);
+        }
+
+        // YouTube Step
         document.getElementById('btnYT').onclick = () => {
+            const now = Date.now();
+            if (ytStartTime > 0 && (now - ytStartTime) < MIN_TIME) {
+                showTooFastWarning();
+                return;
+            }
+            
             window.open('https://www.youtube.com/@Vorthex-k5n', '_blank');
-            ytDone = true;
-            document.getElementById('step1').classList.add('completed');
-            document.getElementById('ytStatus').style.display = 'block';
-            updateGenerateButton();
+            ytStartTime = now;
+            
+            // Inicia timer de 10s
+            let timeLeft = 10;
+            document.getElementById('timerYT').textContent = `${timeLeft}s`;
+            document.getElementById('timerYT').className = 'timer';
+            
+            ytTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timerYT').textContent = `${timeLeft}s`;
+                
+                if (timeLeft <= 3) {
+                    document.getElementById('timerYT').className = 'timer warning';
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(ytTimer);
+                    ytDone = true;
+                    document.getElementById('step1').classList.add('completed');
+                    document.getElementById('ytStatus').style.display = 'block';
+                    updateGenerateButton();
+                }
+            }, 1000);
         };
 
+        // Discord Step
         document.getElementById('btnDC').onclick = () => {
+            const now = Date.now();
+            if (dcStartTime > 0 && (now - dcStartTime) < MIN_TIME) {
+                showTooFastWarning();
+                return;
+            }
+            
             window.open('https://discord.gg/vorthexbr', '_blank');
-            dcDone = true;
-            document.getElementById('step2').classList.add('completed');
-            document.getElementById('dcStatus').style.display = 'block';
-            updateGenerateButton();
+            dcStartTime = now;
+            
+            // Inicia timer de 10s
+            let timeLeft = 10;
+            document.getElementById('timerDC').textContent = `${timeLeft}s`;
+            document.getElementById('timerDC').className = 'timer';
+            
+            dcTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timerDC').textContent = `${timeLeft}s`;
+                
+                if (timeLeft <= 3) {
+                    document.getElementById('timerDC').className = 'timer warning';
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(dcTimer);
+                    dcDone = true;
+                    document.getElementById('step2').classList.add('completed');
+                    document.getElementById('dcStatus').style.display = 'block';
+                    updateGenerateButton();
+                }
+            }, 1000);
         };
 
         function updateGenerateButton() {
