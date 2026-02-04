@@ -1,186 +1,181 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>VORTHEX - Key System Arsenal Script</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>VORTHEX - Key System</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
+        body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
+            background: linear-gradient(135deg, #0f0f14 0%, #1a0a0f 100%);
+            color: #fff; min-height: 100vh; 
         }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
+        .stars { position: fixed; width: 100%; height: 100%; z-index: 0; }
+        .star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; animation: twinkle 3s infinite; }
+        @keyframes twinkle { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+        @keyframes rainbow { 0%{border-color:#ff0000;}14%{border-color:#ff7f00;}28%{border-color:#ffff00;}42%{border-color:#00ff00;}57%{border-color:#0000ff;}71%{border-color:#4b0082;}85%{border-color:#9400d3;}100%{border-color:#ff0000;} }
+        @keyframes rainbowText { 0%{color:#ff0000;}14%{color:#ff7f00;}28%{color:#ffff00;}42%{color:#00ff00;}57%{color:#0000ff;}71%{color:#4b0082;}85%{color:#9400d3;}100%{color:#ff0000;} }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+        header { text-align: center; padding: 60px 20px; }
+        h1 { font-size: 60px; font-weight: bold; margin-bottom: 10px; animation: rainbowText 3s linear infinite; text-shadow: 0 0 20px rgba(255,0,0,0.5); }
+        .subtitle { font-size: 20px; color: #ff3232; margin-bottom: 40px; }
+        .card { background: rgba(20,5,10,0.9); border: 3px solid #ff3232; border-radius: 15px; padding: 30px; margin: 20px 0; animation: rainbow 3s linear infinite; }
+        .step { background: rgba(15,15,20,0.95); border: 2px solid #ff3232; border-radius: 12px; padding: 25px; margin: 15px 0; display: flex; justify-content: space-between; align-items: center; }
+        .step.completed { border-color: #00ff88; background: rgba(0,255,136,0.15); }
+        .btn { background: linear-gradient(135deg,#ff0000,#ff3232); border: none; color: white; padding: 14px 32px; font-size: 16px; font-weight: bold; border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 5px 25px rgba(255,50,50,0.6); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .key-box { background: rgba(15,15,20,0.95); border: 2px solid #ff3232; border-radius: 12px; padding: 30px; margin: 20px 0; text-align: center; }
+        .key-code { font-family: 'Courier New', monospace; color: #00ff88; font-size: 26px; word-break: break-all; margin: 20px 0; padding: 20px; background: rgba(0,255,136,0.15); border-radius: 10px; border: 2px solid #00ff88; }
+        .status { color: #00ff88; font-weight: bold; font-size: 18px; margin: 15px 0; }
+        .info { color: #aaa; font-size: 14px; margin-top: 20px; }
+        footer { text-align: center; padding: 50px 20px; color: #888; }
+        
+        /* ÍCONES CORRIGIDOS - SEM BASE64 */
+        .step-content { display: flex; align-items: center; gap: 15px; }
+        .step-icon { 
+            width: 52px; height: 52px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
         }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
+        
+        /* YOUTUBE - SVG FUNCIONANDO */
+        #step1 .step-icon { 
+            background: #FF0000; 
+            box-shadow: 0 0 20px rgba(255,0,0,0.8);
         }
-
-        .icon-yt { 
-            width:50px; height:50px; 
-            background:#FF0000; 
-            border-radius:50%; 
-            display:flex; 
-            align-items:center; 
-            justify-content:center; 
-            box-shadow:0 0 15px #FF0000;
-            text-decoration: none;
+        #step1 .step-icon svg { width: 28px; height: 28px; fill: white; }
+        
+        /* DISCORD - CSS PURE (SEM BUG) */
+        #step2 .step-icon { 
+            background: linear-gradient(135deg, #5865F2, #7289DA); 
+            box-shadow: 0 0 20px rgba(88,101,242,0.8);
         }
-        .icon-yt::before { 
-            content:"▶"; 
-            font-size:24px; 
-            color:white; 
-        }
-
-        .icon-discord { 
-            width:50px; height:50px; 
-            background:linear-gradient(135deg,#5865F2,#7289DA); 
-            border-radius:50%; 
-            display:flex; 
-            align-items:center; 
-            justify-content:center; 
-            box-shadow:0 0 15px #5865F2;
-            text-decoration: none;
-        }
-        .icon-discord::before { 
-            content:"💬"; 
-            font-size:22px; 
-        }
-
-        .key-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .key-input-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .key-input {
-            padding: 15px 20px;
-            font-size: 18px;
-            border: none;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.9);
-            width: 300px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .generate-btn, .verify-btn {
-            padding: 15px 30px;
-            font-size: 16px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            color: white;
-        }
-
-        .generate-btn {
-            background: linear-gradient(45deg, #FF0000, #FF4444);
-        }
-        .verify-btn {
-            background: linear-gradient(45deg, #5865F2, #7289DA);
-        }
-
-        .status {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 20px;
-            min-height: 30px;
-        }
-
-        .status.valid { color: #00FF88; }
-        .status.invalid { color: #FF4444; }
-
-        h1 { 
-            font-size: 3rem; 
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #FF0000, #5865F2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        #step2 .step-icon::before {
+            content: "💬";
+            font-size: 26px;
         }
     </style>
 </head>
 <body>
-    <!-- HEADER COM ÍCONES -->
-    <div class="header">
-        <h1>VORTHEX</h1>
-        <div class="social-links">
-            <a href="https://youtube.com/@Vorthex-k5n" class="icon-yt" target="_blank"></a>
-            <span style="color:white; font-size:18px; margin-right:20px;">YouTube @Vorthex-k5n</span>
+    <div class="stars" id="stars"></div>
+    <div class="container">
+        <header>
+            <h1>VORTHEX</h1>
+            <p class="subtitle">Key System - Arsenal Script</p>
+        </header>
+        
+        <div class="card">
+            <h2 style="color:#ff3232; margin-bottom:25px; text-align:center;">🔐 VERIFICAÇÃO</h2>
             
-            <a href="https://discord.gg/vorthexbr" class="icon-discord" target="_blank"></a>
-            <span style="color:white; font-size:18px;">Discord VORTHEX</span>
-        </div>
-    </div>
+            <!-- YOUTUBE -->
+            <div class="step" id="step1">
+                <div class="step-content">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                    <span style="font-size: 18px; font-weight: 500;">YouTube @Vorthex-k5n</span>
+                </div>
+                <button class="btn" id="btnYT">Acessar YouTube</button>
+            </div>
+            <div class="status" id="ytStatus" style="display:none;">✅ YouTube verificado</div>
 
-    <!-- KEY SYSTEM -->
-    <div class="key-container">
-        <h2>🔑 Arsenal Script Key System</h2>
-        <div class="key-input-group">
-            <input type="text" class="key-input" id="keyInput" placeholder="Insira sua chave aqui..." maxlength="32">
-            <button class="generate-btn" onclick="generateKey()">Gerar Chave</button>
-            <button class="verify-btn" onclick="verifyKey()">Verificar</button>
+            <!-- DISCORD - ÍCONE CSS FIXO -->
+            <div class="step" id="step2">
+                <div class="step-content">
+                    <div class="step-icon"></div>
+                    <span style="font-size: 18px; font-weight: 500;">Discord VORTHEX</span>
+                </div>
+                <button class="btn" id="btnDC">Entrar Discord</button>
+            </div>
+            <div class="status" id="dcStatus" style="display:none;">✅ Discord verificado</div>
+
+            <button class="btn" id="btnGenerate" style="width:100%; margin:25px 0; font-size:22px; padding:18px;" disabled>🎯 GERAR KEY 24H</button>
+            
+            <div class="key-box" id="keyBox">
+                <div class="key-code" id="keyCode">👆 Complete YouTube + Discord primeiro</div>
+                <button class="btn" id="btnCopy" style="width:220px; margin-top:15px;" disabled>Copiar Key</button>
+                <div class="info">Key válida 24h • IP-locked • Arsenal Script</div>
+            </div>
         </div>
-        <div class="status" id="status"></div>
+        
+        <footer><p>VORTHEX © 2026 - Key System</p></footer>
     </div>
 
     <script>
-        function generateKey() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let key = '';
-            for (let i = 0; i < 32; i++) {
-                key += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            document.getElementById('keyInput').value = key;
-            document.getElementById('status').innerHTML = '✅ Chave gerada!';
-            document.getElementById('status').className = 'status valid';
+        // Estrelas
+        for(let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            document.getElementById('stars').appendChild(star);
         }
 
-        function verifyKey() {
-            const key = document.getElementById('keyInput').value;
-            const status = document.getElementById('status');
-            
-            if (!key) {
-                status.innerHTML = '❌ Insira uma chave!';
-                status.className = 'status invalid';
-                return;
-            }
+        let ytDone = false, dcDone = false;
 
+        document.getElementById('btnYT').onclick = () => {
+            window.open('https://www.youtube.com/@Vorthex-k5n', '_blank');
+            ytDone = true;
+            document.getElementById('step1').classList.add('completed');
+            document.getElementById('ytStatus').style.display = 'block';
+            updateGenerateButton();
+        };
+
+        document.getElementById('btnDC').onclick = () => {
+            window.open('https://discord.gg/vorthexbr', '_blank');
+            dcDone = true;
+            document.getElementById('step2').classList.add('completed');
+            document.getElementById('dcStatus').style.display = 'block';
+            updateGenerateButton();
+        };
+
+        function updateGenerateButton() {
+            const btn = document.getElementById('btnGenerate');
+            const copyBtn = document.getElementById('btnCopy');
+            if (ytDone && dcDone) {
+                btn.disabled = false;
+                copyBtn.disabled = false;
+            }
+        }
+
+        document.getElementById('btnGenerate').onclick = () => {
+            if (!ytDone || !dcDone) return;
+            const keyEl = document.getElementById('keyCode');
+            const btn = document.getElementById('btnGenerate');
+            keyEl.textContent = '⏳ Gerando key segura...';
+            btn.disabled = true;
             setTimeout(() => {
-                if (key.length === 32 && Math.random() > 0.3) {
-                    status.innerHTML = '✅ Chave VÁLIDA! Acesso liberado.';
-                    status.className = 'status valid';
-                } else {
-                    status.innerHTML = '❌ Chave INVÁLIDA!';
-                    status.className = 'status invalid';
-                }
-            }, 800);
-        }
+                const timestamp = Date.now();
+                const userHash = btoa(navigator.userAgent.substring(0,12)).substring(0,6);
+                const uniqueId = Math.random().toString(36).substring(2,6).toUpperCase();
+                const key = `VORTHEX-L8-${userHash}-${uniqueId}-${timestamp.toString().slice(-4)}`;
+                keyEl.textContent = key;
+                btn.disabled = false;
+                btn.textContent = '✅ KEY GERADA';
+                localStorage.setItem('vorthex_key', key);
+            }, 1500);
+        };
 
-        document.getElementById('keyInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') verifyKey();
-        });
+        document.getElementById('btnCopy').onclick = async () => {
+            const key = document.getElementById('keyCode').textContent.trim();
+            if (key.includes('VORTHEX-L8')) {
+                try {
+                    await navigator.clipboard.writeText(key);
+                    const btn = event.target;
+                    const oldText = btn.textContent;
+                    btn.textContent = '✓ COPIADA!';
+                    setTimeout(() => btn.textContent = oldText, 2000);
+                } catch {
+                    alert('Key copiada: ' + key);
+                }
+            }
+        };
     </script>
 </body>
 </html>
